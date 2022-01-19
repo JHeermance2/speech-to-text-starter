@@ -13,6 +13,7 @@ console.log = function () {
     __originalLog.apply(console.log, [getCurrentDateString()].concat(args));
 };
 
+const { Console } = require('console');
 const { resolveSoa } = require('dns');
 //////////////////////////////////////////
 //////////////// GLOBAL //////////////////
@@ -59,31 +60,35 @@ loadConfig()
 //////////////////////////////////////////
 
 function restartApp() {
+    console.log('Restart of Speech-to-Text Bot triggered.')
     const options = {
         hostname: 'api.heroku.com',
         path: '/apps/hawkinsr-speech-to-text/dynos',
+        port: 443;
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/vnd.heroku+json; version=3',
             'Authorization': 'Bearer ' + HEROKU_KEY,
         },
     }
-    try{
-        const req = https.request(options, (res) => {
-            res.setEncoding('utf8');
-            res.on('data', (d) =>{
-                console.log('statusCode: ', res.statusCode);
-                console.log('headers: ', res.headers);
-            });
-            req.on('error', (error) => {
-                console.error(error)
-            });
-            req.end()
-        })
-    }
-    catch (e) {
-        console.log('Request error: ' + e)
-    }
+    console.log('Request options set: ' + options)
+
+    const req = https.request(options, (res) => {
+        console.log('statusCode: ', res.statusCode);
+        console.log('headers: ', res.headers);
+        
+        res.on('data', (d) =>{
+            console.log(d)
+        });
+    });
+
+        req.on('error', (e) => {
+            console.error(e)
+        });
+
+        req.end();
+
+    console.log('Restart request status: ' + res.statusCode);
 }
 
 restartApp()
