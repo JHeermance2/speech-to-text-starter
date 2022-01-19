@@ -96,13 +96,14 @@ app.use(express.static("public"));
 
 app.get('/restart', function (req, res) {
     console.log('Restart request recieved.')
-    res.send("<p>Request recieved, restarting bot</p>");
+    res.send("<p>Request recieved</p>");
+
 })
 
-var server = app.listen(process.env.PIRT || 8081, () => {
+var server = app.listen( () => {
     var host = server.address().address;
     var port = server.address().port;
-    console.log("listening on http://%s:%s", host, port)
+    console.log("listening on: " + host + port)
 })
 
 
