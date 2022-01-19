@@ -63,14 +63,15 @@ function restartApp() {
     console.log('Restart of Speech-to-Text Bot triggered.')
     const options = {
         hostname: 'api.heroku.com',
-        path: '/apps/hawkinsr-speech-to-text/dynos',
+        path: '/apps/hawkinsr-speech-to-text/dynos ',
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/vnd.heroku+json; version=3',
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.heroku+json; version=3',
             'Authorization': 'Bearer ' + HEROKU_KEY,
         },
     }
-    console.log('Request options set: ' + options.hostname + options.path)
+    console.log('Request path: ' + options.hostname + options.path)
 
     const req = https.request(options, (res) => {
         console.log('statusCode: ', res.statusCode);
