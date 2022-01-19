@@ -64,14 +64,13 @@ function restartApp() {
     const options = {
         hostname: 'api.heroku.com',
         path: '/apps/hawkinsr-speech-to-text/dynos',
-        port: 443,
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/vnd.heroku+json; version=3',
             'Authorization': 'Bearer ' + HEROKU_KEY,
         },
     }
-    console.log('Request options set: ' + options)
+    console.log('Request options set: ' + options.hostname + options.path)
 
     const req = https.request(options, (res) => {
         console.log('statusCode: ', res.statusCode);
@@ -88,7 +87,7 @@ function restartApp() {
 
         req.end();
 
-    console.log('Restart request status: ' + res.statusCode);
+    console.log('Restart request sent')
 }
 
 restartApp()
