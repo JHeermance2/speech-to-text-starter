@@ -1,0 +1,2 @@
+# restarter for DiscordSpeechToText Bot
+
