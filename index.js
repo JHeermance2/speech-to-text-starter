@@ -19,7 +19,8 @@ console.log = function () {
 
 const fs = require('fs');
 const https = require('https')
-const express = require('express')
+const express = require('express');
+const { V4MAPPED } = require('dns');
 
 //////////////////////////////////////////
 ///////////////// VARIA //////////////////
@@ -98,46 +99,9 @@ app.get('/restart', function (req, res) {
     console.log('Restart request recieved.')
     res.send("<p>Request recieved</p>");
     
-})
+});
 
-var server = app.listen(process.env.PORT || 8081, () => {
-    var host = server.address().address;
+var server = app.listen(8081, function() {
     var port = server.address().port;
-    console.log("listening on: " + host + port)
+    console.log("Listening on: " + port)
 })
-
-
-// // Google Speech API
-// // https://cloud.google.com/docs/authentication/production
-// const gspeech = require('@google-cloud/speech');
-// const gspeechclient = new gspeech.SpeechClient({
-//     projectId: 'discordbot',
-//     keyFilename: 'gspeech_key.json'
-// });
-
-// async function transcribe_gspeech(buffer) {
-//     try {
-//         console.log('transcribe_gspeech')
-//         const bytes = buffer.toString('base64');
-//         const audio = {
-//             content: bytes,
-//         };
-//         const config = {
-//             encoding: 'LINEAR16',
-//             sampleRateHertz: 48000,
-//             languageCode: 'en-US',  // https://cloud.google.com/speech-to-text/docs/languages
-//         };
-//         const request = {
-//             audio: audio,
-//             config: config,
-//         };
-
-//         const [response] = await gspeechclient.recognize(request);
-//         const transcription = response.results
-//             .map(result => result.alternatives[0].transcript)
-//             .join('\n');
-//         console.log(`gspeech: ${transcription}`);
-//         return transcription;
-
-//     } catch (e) { console.log('transcribe_gspeech 368:' + e) }
-// }
