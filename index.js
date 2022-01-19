@@ -67,16 +67,21 @@ function restartApp() {
             'Authorization': 'Bearer ' + HEROKU_KEY,
         },
     }
-    const req = https.request(options, (res) => {
-        res.setEncoding('utf8');
-        req.on('error', (error) => {
-            console.error(error)
+    try{
+        const req = https.request(options, (res) => {
+            res.setEncoding('utf8');
+            req.on('error', (error) => {
+                console.error(error)
+            })
+            req.end()
         })
-        req.end()
-    })
+    }
+    catch (e) {
+        console.log('Request error: ' + e)
+    }
 }
 
-restartApp()
+
 
 
 
