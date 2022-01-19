@@ -97,10 +97,10 @@ app.use(express.static("public"));
 app.get('/restart', function (req, res) {
     console.log('Restart request recieved.')
     res.send("<p>Request recieved</p>");
-
+    
 })
 
-var server = app.listen( () => {
+var server = app.listen(process.env.PORT || 8081, () => {
     var host = server.address().address;
     var port = server.address().port;
     console.log("listening on: " + host + port)
