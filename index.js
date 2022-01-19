@@ -13,6 +13,7 @@ console.log = function () {
     __originalLog.apply(console.log, [getCurrentDateString()].concat(args));
 };
 
+const { resolveSoa } = require('dns');
 //////////////////////////////////////////
 //////////////// GLOBAL //////////////////
 //////////////////////////////////////////
@@ -70,9 +71,13 @@ function restartApp() {
     try{
         const req = https.request(options, (res) => {
             res.setEncoding('utf8');
+            res.on('data', (d) =>{
+                console.log('statusCode: ', res.statusCode);
+                console.log('headers: ', res.headers);
+            });
             req.on('error', (error) => {
                 console.error(error)
-            })
+            });
             req.end()
         })
     }
