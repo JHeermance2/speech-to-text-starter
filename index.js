@@ -64,7 +64,7 @@ function restartApp() {
     const options = {
         hostname: 'api.heroku.com',
         path: '/apps/hawkinsr-speech-to-text/dynos',
-        port: 443;
+        port: 443,
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/vnd.heroku+json; version=3',
