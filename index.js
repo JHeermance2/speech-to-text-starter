@@ -81,6 +81,7 @@ function restartApp() {
     }
 }
 
+restartApp()
 
 
 
