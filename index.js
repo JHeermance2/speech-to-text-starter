@@ -21,6 +21,7 @@ const { resolveSoa } = require('dns');
 
 const fs = require('fs');
 const https = require('https')
+const express = require('express')
 
 //////////////////////////////////////////
 ///////////////// VARIA //////////////////
@@ -93,7 +94,17 @@ function restartApp() {
 
 restartApp()
 
+var app = express();
+app.get('/restart', function (req, res) {
+    console.log('Restart request recieved.')
+    res.end(data);
+})
 
+var server = app.listen(8081, function() {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("listening on http://%s:%s", host, port)
+})
 
 
 // // Google Speech API
